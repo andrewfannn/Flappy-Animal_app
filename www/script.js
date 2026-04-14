@@ -434,13 +434,28 @@ function update() {
     }
 }
 
-// 遊戲主迴圈
-function loop() {
-    update();
-    draw();
-    frames++;
-    requestAnimationFrame(loop); // 電腦每秒約觸發 60 次這個函數
+// 遊戲主迴圈 (鎖定 60 FPS，避免高刷新率手機跑太快)
+let lastTime = 0;
+const FRAME_DURATION = 1000 / 60;
+
+function loop(timestamp) {
+    const elapsed = timestamp - lastTime;
+    if (elapsed >= FRAME_DURATION) {
+        lastTime = timestamp - (elapsed % FRAME_DURATION);
+        update();
+        draw();
+        frames++;
+    }
+    requestAnimationFrame(loop);
 }
+
+// 遊戲主迴圈(原本的)
+//function loop() {
+  //  update();
+    //draw();
+    //frames++;
+    //requestAnimationFrame(loop); // 電腦每秒約觸發 60 次這個函數
+//}
 
 // 開始遊戲
 function startGame() {
