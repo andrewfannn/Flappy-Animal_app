@@ -37,7 +37,9 @@ jobs:
           for dir in hdpi mdpi xhdpi xxhdpi xxxhdpi; do
             cp icon.png android/app/src/main/res/mipmap-$dir/ic_launcher.png
             cp icon.png android/app/src/main/res/mipmap-$dir/ic_launcher_round.png
+            cp icon.png android/app/src/main/res/mipmap-$dir/ic_launcher_foreground.png
           done
+
 
 
       - name: Make gradlew executable
