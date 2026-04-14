@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name"> Flappy Animal</string>
+    <string name="title_activity_main"> Flappy Animal</string>
+    <string name="package_name">com.flappyanimal.app</string>
+    <string name="custom_url_scheme">com.flappyanimal.app</string>
+</resources>

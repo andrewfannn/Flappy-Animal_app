@@ -1,0 +1,332 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #2c3e50;
+    /* 深藍色背景, 讓遊戲畫面更突出 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    overflow: hidden;
+    /* 隱藏溢出的畫面，避免全螢幕縮放時出現捲軸 */
+}
+
+.game-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #70c5ce;
+    /* 天空藍 */
+}
+
+canvas {
+    display: block;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* 讓點擊穿透到 Canvas 上，除了按鈕 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 50px;
+    box-sizing: border-box;
+}
+
+#title {
+    color: white;
+    text-shadow: 3px 3px 0 #000;
+    /* 給標題像素陰影感 */
+    margin-bottom: 5px;
+    /* 把標題下方的間距縮小，讓底下選單能往上靠 */
+    font-size: 26px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+#instruction {
+    position: absolute;
+    bottom: 130px;
+    /* 移到畫面下半部 */
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+    animation: blink 1s infinite;
+}
+
+#character-select {
+    margin-top: 10px;
+    /* 把間距縮小，讓選單位置整體往上移 */
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    pointer-events: auto;
+    /* 確保按鈕可以被點擊 */
+    z-index: 10;
+}
+
+#character-select p {
+    font-size: 14px;
+    margin: 0 0 15px 0;
+    color: #f1c40f;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.char-options {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.char-btn {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #555;
+    color: white;
+    border: 3px solid #aaa;
+    border-radius: 6px;
+    padding: 12px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.char-btn:active {
+    transform: scale(0.95);
+}
+
+.char-btn.selected {
+    background-color: #e6613d;
+    border-color: white;
+}
+
+#high-score-display {
+    position: absolute;
+    top: 25px;
+    /* 下調高度讓它能跟左邊帶有邊框的按鈕文字處在同一條水平線上 */
+    right: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 2px 2px 0 #000;
+    display: flex;
+    align-items: center;
+    /* 讓中文標題、冒號和英文數字垂直置中對齊 */
+    gap: 5px;
+    /* 加點小間距 */
+}
+
+#audio-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    pointer-events: auto;
+    /* 確保滑桿可以獨立觸發點擊拖曳 */
+    z-index: 10;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 14px;
+    /* 加大文字大小，讓中文字觀看更清楚 */
+    font-family: '微軟正黑體', sans-serif;
+    /* 針對中文標籤使用正黑體，確保清晰度 */
+    font-weight: bold;
+    color: #ddd;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.control-group input[type="range"] {
+    width: 60px;
+    cursor: pointer;
+}
+
+#score-board {
+    position: absolute;
+    top: 20px;
+    font-size: 40px;
+    text-shadow: 3px 3px 0 #000;
+    z-index: 10;
+    display: none;
+    /* 等遊戲開始再顯示 */
+}
+
+#pause-btn {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background-color: #f39c12;
+    color: white;
+    border: 2px solid white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+    box-shadow: 0 4px 0px #b8740c;
+}
+
+#pause-btn .zh {
+    font-family: "微軟正黑體", sans-serif;
+    font-weight: 900;
+    font-size: 13px;
+    transform: translateY(-2px);
+    /* 手動把中文往上抬，強制對齊英文像素字庫的基準線 */
+}
+
+#pause-btn .en {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+}
+
+#pause-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0px #b8740c;
+}
+
+#pause-btn.hidden {
+    display: none !important;
+}
+
+#pause-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border: 4px solid #f39c12;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 25;
+}
+
+#pause-screen h2 {
+    color: #f1c40f;
+    margin: 0;
+    font-size: 24px;
+}
+
+#pause-screen.hidden {
+    display: none !important;
+}
+
+#resume-btn {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #f39c12;
+    color: white;
+    border: 3px solid white;
+    padding: 10px 15px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 0px #b8740c;
+}
+
+#resume-btn:hover {
+    background-color: #f1c40f;
+}
+
+#resume-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0px #b8740c;
+}
+
+#game-over-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border: 4px solid #ded8bc;
+    pointer-events: auto;
+    /* 允許點擊內部的重啟按鈕 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 20;
+}
+
+#game-over-screen h2 {
+    color: #e6613d;
+    margin: 0;
+    font-size: 24px;
+}
+
+#game-over-screen .best {
+    color: #f1c40f;
+    margin: 0;
+    font-size: 18px;
+}
+
+#game-over-screen.hidden {
+    display: none !important;
+}
+
+#restart-btn {
+    font-family: 'Press Start 2P', cursive;
+    background-color: #e6613d;
+    /* 橘紅色按鈕 */
+    color: white;
+    border: 3px solid white;
+    padding: 15px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+    border-radius: 5px;
+    box-shadow: 0 4px 0px #ab4a2e;
+}
+
+#restart-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0px #ab4a2e;
+}
+
+#restart-btn:hover {
+    background-color: #f7704b;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}

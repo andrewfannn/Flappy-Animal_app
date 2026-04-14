@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Animal</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入像素風格字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        <div id="ui-layer">
+            <h1 id="title">FLAPPY ANIMAL</h1>
+            <p id="instruction">點擊畫面或按空白鍵開始</p>
+
+            <div id="character-select">
+                <p>選擇你的角色</p>
+                <div class="char-options">
+                    <button class="char-btn selected" data-src="default">預設</button>
+                    <button class="char-btn" data-src="腳色圖片儲存/bird.png">烏龜</button>
+                    <button class="char-btn" data-src="腳色圖片儲存/bird1.png">狗狗</button>
+                    <button class="char-btn" data-src="腳色圖片儲存/bird2.png">蜜蜂</button>
+                </div>
+            </div>
+
+            <div id="audio-controls">
+                <div class="control-group">
+                    <label>音樂</label>
+                    <input type="range" id="bgm-volume" min="0" max="1" step="0.1" value="0.5">
+                </div>
+                <div class="control-group">
+                    <label>音效</label>
+                    <input type="range" id="sfx-volume" min="0" max="1" step="0.1" value="1.0">
+                </div>
+            </div>
+
+            <div id="high-score-display">
+                <span class="label-zh" style="font-family: '微軟正黑體', sans-serif;">最高分數</span>
+                <span class="colon">:</span>
+                <span id="best-score">0</span>
+            </div>
+            <div id="score-board">0</div>
+
+            <button id="pause-btn" class="hidden"><span class="zh">暫停</span><span class="en">(P)</span></button>
+            <div id="pause-screen" class="hidden">
+                <h2>已暫停</h2>
+                <button id="resume-btn">繼續遊戲</button>
+            </div>
+
+            <div id="game-over-screen" class="hidden">
+                <h2>GAME OVER</h2>
+                <p>SCORE: <span id="final-score">0</span></p>
+                <p class="best">BEST: <span id="final-best-score">0</span></p>
+                <button id="restart-btn">再來一次</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

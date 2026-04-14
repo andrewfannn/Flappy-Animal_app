@@ -1,0 +1,35 @@
+{
+  "name": "flappy-animal",
+  "productName": "Flappy Animal",
+  "version": "1.0.0",
+  "description": "Flappy Bird Web Game",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --dir"
+  },
+  "build": {
+    "appId": "com.flappyanimal.app",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "win": {
+      "target": "dir",
+      "icon": "build/icon.ico"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^41.2.0",
+    "electron-builder": "^26.8.1",
+    "png-to-ico": "^3.0.1",
+    "rcedit": "^5.0.2"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0"
+  }
+}
