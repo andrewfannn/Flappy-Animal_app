@@ -1,7 +1,7 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-// UI 元素
+// UI 元素哈哈哈
 const title = document.getElementById('title');
 const instruction = document.getElementById('instruction');
 const scoreBoard = document.getElementById('score-board');
@@ -436,26 +436,22 @@ function update() {
 
 // 遊戲主迴圈 (鎖定 60 FPS，避免高刷新率手機跑太快)
 let lastTime = 0;
-const FRAME_DURATION = 1000 / 60;
+const TARGET_FPS = 60;
+const FRAME_DURATION = 1000 / TARGET_FPS; // 每幀應花的毫秒數 (≈16.67ms)
 
 function loop(timestamp) {
     const elapsed = timestamp - lastTime;
+
+    // 只有超過一幀的時間才執行，確保速度恆定在 60 FPS
     if (elapsed >= FRAME_DURATION) {
         lastTime = timestamp - (elapsed % FRAME_DURATION);
         update();
         draw();
         frames++;
     }
-    requestAnimationFrame(loop);
-}
 
-// 遊戲主迴圈(原本的)
-//function loop() {
-  //  update();
-    //draw();
-    //frames++;
-    //requestAnimationFrame(loop); // 電腦每秒約觸發 60 次這個函數
-//}
+    requestAnimationFrame(loop); // 繼續排定下一幀
+}
 
 // 開始遊戲
 function startGame() {
@@ -597,11 +593,11 @@ sfxVolumeInput.addEventListener('input', (e) => {
 function resizeGame() {
     const gameContainer = document.querySelector('.game-container');
     if (!gameContainer) return;
-    
+
     // 計算比例，以原本的 400x600 為基準
     // 使用 Math.min 確保畫面在任何比例的視窗下都能夠完整顯示且不變形
     const scale = Math.min(window.innerWidth / 400, window.innerHeight / 600);
-    
+
     gameContainer.style.transform = `scale(${scale})`;
     gameContainer.style.transformOrigin = 'center center';
 }
